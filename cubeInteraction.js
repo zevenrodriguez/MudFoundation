@@ -22,7 +22,7 @@
 // ─── Modules ──────────────────────────────────────────────────────────────────
 const ray    = RayInteractor({});
 const rig    = XRRig({ THREE, scene, camera, Input, avatarRig, avatarPOV });
-const input  = UnifiedRaycast({ renderer, camera, Input, MouseButton });
+const input  = UnifiedRaycast({ THREE, renderer, camera, Input, MouseButton });
 const gui    = MudGui({ THREE, scene, renderer, RayInteractor: ray.RayInteractor });
 
 // ─── Scene objects ────────────────────────────────────────────────────────────

@@ -20,6 +20,22 @@
 
 const PointerType = { Mouse: 'mouse', XR: 'xr' };
 
+// Input.xr.raycast(i) appears to hand back a pooled/shared raycaster object
+// rather than a fresh one per controller — reusing its reference directly
+// meant every pointer's hit-test could end up testing whichever controller's
+// ray was written to it last that frame. Each hand gets its own persistent
+// THREE.Raycaster here so nothing else can mutate it out from under us.
+const _handRaycasters = new Map();
+
+function raycasterFor(id) {
+    let raycaster = _handRaycasters.get(id);
+    if (!raycaster) {
+        raycaster = new THREE.Raycaster();
+        _handRaycasters.set(id, raycaster);
+    }
+    return raycaster;
+}
+
 function startup() {
     Input.mouse.start();
 }
@@ -48,10 +64,12 @@ function getPointers() {
     if (xrCount > 0) {
         for (let i = 0; i < xrCount; i++) {
             const raycast = Input.xr.raycast(i);
-            raycast.raycaster.ray.origin.copy(raycast.position);
-            raycast.raycaster.ray.direction.copy(raycast.direction).normalize();
+            const hand    = Input.xr.handedness(i);
+            const id      = (hand === 'left' || hand === 'right') ? hand : `xr${i}`;
 
-            const hand = Input.xr.handedness(i);
+            const raycaster = raycasterFor(id);
+            raycaster.ray.origin.copy(raycast.position);
+            raycaster.ray.direction.copy(raycast.direction).normalize();
 
             // Snapshot press/release once per controller per frame — these
             // read edge-triggered engine state, so polling them lazily (only
@@ -63,10 +81,10 @@ function getPointers() {
             const released = Input.xr.isButtonReleased(i, 0);
 
             pointers.push({
-                id:         (hand === 'left' || hand === 'right') ? hand : `xr${i}`,
+                id,
                 type:       PointerType.XR,
                 handedness: hand,
-                raycaster:  raycast.raycaster,
+                raycaster,
                 isPressed:  () => pressed,
                 isReleased: () => released,
             });
