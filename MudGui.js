@@ -143,6 +143,15 @@ function MudText(options) {
             opts.text = text;
             draw(opts.backgroundColor, opts.borderColor);
         },
+        // Removes the panel from the scene and frees its GPU resources. Call
+        // it from your Behavior's dispose, or panels from earlier runs are
+        // left behind in the scene.
+        dispose: function() {
+            if (mesh.parent) mesh.parent.remove(mesh);
+            mesh.geometry.dispose();
+            mesh.material.dispose();
+            texture.dispose();
+        },
         _draw: draw,
         _opts: opts,
     };
@@ -160,7 +169,7 @@ function MudText(options) {
 //   btn.onClick = () => { console.log('clicked'); };
 //
 //   // In update loop:
-//   btn.update(raycast, isPressed, isReleased);
+//   btn.update(pointers);
 // ─────────────────────────────────────────────────────────────────────────────
 function MudButton(options) {
     const opts = Object.assign({
@@ -194,6 +203,10 @@ function MudButton(options) {
         reset: function() {
             interactor.reset();
             base._draw(normalBg, normalBorder);
+        },
+        dispose: function() {
+            interactor.reset();
+            base.dispose();
         },
     };
 
