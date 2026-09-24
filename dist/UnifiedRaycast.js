@@ -22,6 +22,12 @@
          * When an XR session is active, one pointer is returned per XR controller.
          * Otherwise, a single mouse pointer is returned.
          *
+         * Pointers are read once per frame in update(), and getPointers() hands every
+         * caller that same list. XR button edges are consumed when read, so if each
+         * Behavior polled them itself, the first one to run each frame would take the
+         * click and the rest would never see it. This module must therefore update
+         * before any Behavior that calls getPointers().
+         *
          * NOTE: this module starts/stops mouse input itself, but does not start XR
          * input — XRRig.js owns that (it needs XR running for locomotion regardless
          * of raycasting), so an XR session must already be active for XR pointers to
@@ -36,6 +42,9 @@
         // ray was written to it last that frame. Each hand gets its own persistent
         // THREE.Raycaster here so nothing else can mutate it out from under us.
         const _handRaycasters = new Map();
+
+        // This frame's pointers, rebuilt by update()
+        let _pointers = [];
 
         function raycasterFor(id) {
             let raycaster = _handRaycasters.get(id);
@@ -60,14 +69,23 @@
             if (pointer.type === PointerType.Mouse) renderer.domElement.style.cursor = style;
         }
 
+        function update() {
+            _pointers = readPointers();
+        }
+
         function dispose() {
             Input.mouse.stop();
+            _pointers = [];
         }
 
         /**
          * @returns {Array} pointers for the current frame
          */
         function getPointers() {
+            return _pointers;
+        }
+
+        function readPointers() {
             const pointers = [];
             const xrCount  = Input.xr.count();
 
@@ -116,6 +134,6 @@
             return pointers;
         }
 
-        return { getPointers: getPointers, PointerType: PointerType, setCursor: setCursor, startup: startup, dispose: dispose };
+        return { getPointers: getPointers, PointerType: PointerType, setCursor: setCursor, startup: startup, update: update, dispose: dispose };
     };
 }));

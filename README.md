@@ -100,7 +100,7 @@ function update() {
 }
 ```
 
-Call `getPointers()` once per frame and share the result. It reads each button's press and release once, so every interactor sees the same click.
+`MudModules` reads the mouse and controllers once at the start of each frame, and `getPointers()` returns that same list to every Behavior that asks. That way a trigger release reaches every button and object, not just the first Behavior to check.
 
 ---
 

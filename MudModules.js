@@ -38,6 +38,7 @@ function startup() {
 
 function update(delta) {
     rig.update(delta);
+    input.update();
 }
 
 function dispose() {
