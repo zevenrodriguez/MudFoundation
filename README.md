@@ -231,10 +231,10 @@ To hide a button, set `button.mesh.visible = false` and call `button.reset()`. R
 [MudModules.js](MudModules.js) loads the modules from this repository and shares them with the rest of your scene. Add it once, as its own Behavior.
 
 ```js
-#pragma import(RayInteractor  = "https://cdn.jsdelivr.net/gh/zevenrodriguez/MudFoundation@3000fde/dist/RayInteractor.js")
-#pragma import(XRRig          = "https://cdn.jsdelivr.net/gh/zevenrodriguez/MudFoundation@3000fde/dist/XRRig.js")
-#pragma import(UnifiedRaycast = "https://cdn.jsdelivr.net/gh/zevenrodriguez/MudFoundation@3000fde/dist/UnifiedRaycast.js")
-#pragma import(MudGui         = "https://cdn.jsdelivr.net/gh/zevenrodriguez/MudFoundation@3000fde/dist/MudGui.js")
+#pragma import(RayInteractor  = "https://cdn.jsdelivr.net/gh/zevenrodriguez/MudFoundation@d5c718f/dist/RayInteractor.js")
+#pragma import(XRRig          = "https://cdn.jsdelivr.net/gh/zevenrodriguez/MudFoundation@d5c718f/dist/XRRig.js")
+#pragma import(UnifiedRaycast = "https://cdn.jsdelivr.net/gh/zevenrodriguez/MudFoundation@d5c718f/dist/UnifiedRaycast.js")
+#pragma import(MudGui         = "https://cdn.jsdelivr.net/gh/zevenrodriguez/MudFoundation@d5c718f/dist/MudGui.js")
 
 const ray   = RayInteractor({});
 const rig   = XRRig({ THREE, scene, camera, Input, avatarRig, avatarPOV });
@@ -269,7 +269,7 @@ MUD needs an export to exist before anything imports it. Put `MudModules` above 
 
 ### Updating the modules
 
-The URLs are pinned to a commit (`@3000fde`). The headset's browser keeps downloaded files for up to 7 days, so a link like `@main` can keep running old code after you push a fix. A new commit hash is a new link, so it always loads fresh.
+The URLs are pinned to a commit (`@d5c718f`). The headset's browser keeps downloaded files for up to 7 days, so a link like `@main` can keep running old code after you push a fix. A new commit hash is a new link, so it always loads fresh.
 
 The files in `dist/` are generated from the source files in the repository root. To change a module:
 

@@ -1,7 +1,7 @@
-#pragma import(RayInteractor  = "https://cdn.jsdelivr.net/gh/zevenrodriguez/MudFoundation@3000fde/dist/RayInteractor.js")
-#pragma import(XRRig          = "https://cdn.jsdelivr.net/gh/zevenrodriguez/MudFoundation@3000fde/dist/XRRig.js")
-#pragma import(UnifiedRaycast = "https://cdn.jsdelivr.net/gh/zevenrodriguez/MudFoundation@3000fde/dist/UnifiedRaycast.js")
-#pragma import(MudGui         = "https://cdn.jsdelivr.net/gh/zevenrodriguez/MudFoundation@3000fde/dist/MudGui.js")
+#pragma import(RayInteractor  = "https://cdn.jsdelivr.net/gh/zevenrodriguez/MudFoundation@d5c718f/dist/RayInteractor.js")
+#pragma import(XRRig          = "https://cdn.jsdelivr.net/gh/zevenrodriguez/MudFoundation@d5c718f/dist/XRRig.js")
+#pragma import(UnifiedRaycast = "https://cdn.jsdelivr.net/gh/zevenrodriguez/MudFoundation@d5c718f/dist/UnifiedRaycast.js")
+#pragma import(MudGui         = "https://cdn.jsdelivr.net/gh/zevenrodriguez/MudFoundation@d5c718f/dist/MudGui.js")
 
 #pragma lifecycle(startup, update, dispose)
 
