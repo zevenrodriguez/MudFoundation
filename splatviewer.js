@@ -23,7 +23,8 @@
 
 // ─── Config ───────────────────────────────────────────────────────────────────
 //const SPLAT_URL    = "https://sparkjs.dev/assets/splats/butterfly.spz";
-const SPLAT_URL    = "https://www.zevenrodriguez.com/MudFoundation/desertroom.spz";
+//const SPLAT_URL    = "https://www.zevenrodriguez.com/MudFoundation/desertroom.spz";
+const SPLAT_URL    = "https://www.zevenrodriguez.com/scans/interior.spz";
 
 const ANCHOR_NAME  = "splatAnchor";  // empty object placed in the editor
 const FLIP_UPRIGHT = true;           // most captures load upside-down; set false if yours doesn't
